@@ -48,25 +48,25 @@ jobs:
           sudo chmod -R 755 /opt/toolchains/dc
           sudo chown -R $(id -u):$(id -g) /opt/toolchains/dc
           git clone https://github.com/kallistiOS/KallistiOS --depth=1 ${GIT_BASE}
-
+          ./001_genconfig.sh
       - name: Build DC Toolchain
         run: | 
           cd ${GIT_BASE}/utils/dc-chain
           mv ${GIT_BASE}/utils/dc-chain/config/config.mk.stable.sample ${GIT_BASE}/utils/dc-chain/config.mk
-          make -j$(getconf _NPROCESSORS_ONLN) build-sh4 #Full make builds arm compiler for sound processor, not required unless hardware testing
+          make build-sh4 #Full make builds arm compiler for sound processor, not required unless hardware testing
           make gdb -j$(getconf _NPROCESSORS_ONLN)
           make clean
 
       - uses: actions/upload-artifact@v3
         with:
           name: dctoolchain-${{ matrix.os[0] }}
-          path: dctoolchain-${{ matrix.os[0] }}-latest.tar.gz
+          path: dctoolchain-${{ matrix.os[0] }}.tar.gz
 
       - name: Create pre-release
         if: ${{ github.ref == 'refs/heads/master' }}
         uses: softprops/action-gh-release@v1
         with:
-          files: dctoolchain-${{ matrix.os[0] }}-latest.tar.gz
+          files: dctoolchain-${{ matrix.os[0] }}.tar.gz
           prerelease: true
           name: "Development build"
           tag_name: "latest"
