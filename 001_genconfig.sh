@@ -1,6 +1,7 @@
 #!/bin/bash
 
-cat << 'EOF' >> ${GIT_BASE}/utils/dc-chain/config.mk
+#Todo add support for Windows auto detection of CPU Count
+cat << EOF >> ${GIT_BASE}/utils/dc-chain/config.mk
 
 # Sega Dreamcast Toolchains Maker (dc-chain)
 # This file is part of KallistiOS.
@@ -75,7 +76,7 @@ download_protocol=https
 #force_downloader=wget
 
 # Specify GNU Mirror override
-# The default mirror for GNU sources is `ftpmirror.gnu.org`
+# The default mirror for GNU sources is 'ftpmirror.gnu.org'
 # Setting this will allow overriding the default mirror which
 # may be desirable if you have a preferred mirror.
 #gnu_mirror=mirrors.kernel.org
@@ -108,7 +109,7 @@ install_mode=install-strip
 # Please note, this value may be overridden in some cases; as issues were
 # detected on some OS.
 
-makejobs=-j$(getconf _NPROCESSORS_ONLN)
+makejobs=$(getconf _NPROCESSORS_ONLN)
 
 # Languages (c|c++|objc|obj-c++)
 # Set the languages to build for pass 2 of building gcc for sh-elf. The default
