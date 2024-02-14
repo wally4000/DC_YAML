@@ -109,7 +109,7 @@ install_mode=install-strip
 # Please note, this value may be overridden in some cases; as issues were
 # detected on some OS.
 
-makejobs=$(getconf _NPROCESSORS_ONLN)
+makejobs=-j$(getconf _NPROCESSORS_ONLN)
 
 # Languages (c|c++|objc|obj-c++)
 # Set the languages to build for pass 2 of building gcc for sh-elf. The default
